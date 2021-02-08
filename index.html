@@ -2,22 +2,48 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JSValidator</title>
-    <link rel="stylesheet" type="text/css" href="./css/style.css" >
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSValidator</title>
+  <link rel="stylesheet" type="text/css" href="./css/style.css">
 
 </head>
 
 
 <body>
 
-  <form id="myForm" method="GET"> 
+  <form id="myForm" method="GET">
 
-  </form>  
+    <div>
+      <label>Nombre:</label>
+      <input 
+          class="jsValidator" 
+          type="text" 
+          name="name"
+          data-validators="required length">
+    </div>
+
+    <div>
+      <label>Email:</label>
+      <input 
+          class="jsValidator" 
+          type="email" 
+          name="email"
+          data-validators="required">
+    </div>
+
+    <button type="submit">Enviar</button>
+
+  </form>
 
   <script src="./js/jsvalidator.js"></script>
+
+  <script>
+
+    const myFormValidator = new JSValidator('myForm').init();
+
+  </script>
 
 </body>
 

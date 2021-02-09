@@ -5,6 +5,20 @@ class JSValidator {
 
     errors = [];
 
+    via = 'http';
+
+    msgs = {
+
+        required: `Este campo es requerido`,
+        minLength: `Longitud no válida. Mínimo ${this.validators.minLength} caracteres`,
+        maxLength: `Longitud no válida. Máximo ${this.validators.maxLength} caracteres`,
+        email: `El campo de email no es válido`,
+        integer: `El campo debe ser de tipo entero`,
+        digit: `El valor debe ser un dígito`,
+        url: `El campo debe ser una URL válida`
+
+    }
+
 
     constructor(formId) { //El cosntrusctor recibe como parametro el ID del formulario
 
@@ -29,6 +43,14 @@ class JSValidator {
     setInputs() {
 
         this.inputs = document.querySelectorAll(`#${this.form.id} .jsValidator`);
+    }
+
+    setAjax() {
+
+        this.via = 'ajax';
+
+        return this;
+
     }
 
     parseInputs() {
@@ -73,16 +95,33 @@ class JSValidator {
                 // Prevenir el envio del formulario
                 e.preventDefault();
 
-                console.log('ERROR. Ha ocurrido un error de validación');
-
             } else {
 
-                // Para fines de prueba
-                e.preventDefault();
+                if (this.via == 'ajax') {
 
-                console.log('ÉXITO. El formulario se envio correctamente');
+                    e.preventDefault();
+
+                    this.submitHandler();
+
+                }
 
             }
+
+        });
+
+    }
+
+    validateInputs() {
+
+        this.inputs.forEach(input => {
+
+            input.addEventListener('input', (e) => {
+
+                this.resetValidation();
+
+                this.validateInput(input);
+
+            });
 
         });
 
@@ -170,9 +209,35 @@ class JSValidator {
 
     }
 
+    submitHandler() {
+
+        let data = new FormData(this.form);
+
+        fetch(this.form.action, {
+
+                method: this.form.method,
+                body: data
+
+            })
+            .then(response => response.json())
+            .then(data => {
+
+                console.log(data);
+
+            })
+            .catch(error => {
+
+                console.error(error)
+
+            })
+
+    }
+
     init() {
 
         this.validateForm();
+
+        this.validateInputs();
 
         return this;
 
@@ -187,7 +252,7 @@ JSValidator.prototype._required = function (input) {
 
     let value = input.value;
 
-    let msg = 'Este campo es requerido';
+    let msg = this.msgs.required;
 
     if (value.trim() == "" || value.length < 1) {
 

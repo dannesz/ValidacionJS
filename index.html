@@ -13,7 +13,7 @@
 
 <body>
 
-  <form id="myForm" method="GET">
+  <form action="/endpoint.php" id="myForm" method="POST">
 
     <div>
       <label>Nombre:</label>
@@ -41,7 +41,7 @@
 
   <script>
 
-    const myFormValidator = new JSValidator('myForm').init();
+    const myFormValidator = new JSValidator('myForm').init().setAjax();
 
   </script>
 

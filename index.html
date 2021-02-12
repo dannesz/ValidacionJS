@@ -21,7 +21,20 @@
           class="jsValidator" 
           type="text" 
           name="name"
-          data-validators="required length">
+          data-validators="required length"
+          data-validators_minlength="5"
+          data-validators_maxlength="300">
+    </div>
+    
+    <div>
+      <label>Username:</label>
+      <input 
+        class="jsValidator"
+        type="text"
+        name="name"
+        data-validators="required length alphanumeric"
+        data-validators_minlength="5"
+        data-validators_maxlength="300">
     </div>
 
     <div>
@@ -30,7 +43,25 @@
           class="jsValidator" 
           type="email" 
           name="email"
-          data-validators="required">
+          data-validators="email">
+    </div>
+
+    <div>
+      <label>URL:</label>
+      <input 
+          class="jsValidator" 
+          type="text" 
+          name="url"
+          data-validators="required url">
+    </div>
+
+    <div>
+      <label>Edad:</label>
+      <input 
+        class="jsValidator"
+        type="text"
+        name="age"
+        data-validators="integer">
     </div>
 
     <button type="submit">Enviar</button>
